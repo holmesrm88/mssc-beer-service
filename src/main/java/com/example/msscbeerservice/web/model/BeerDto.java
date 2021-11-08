@@ -3,6 +3,8 @@ package com.example.msscbeerservice.web.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.*;
 
@@ -51,6 +53,7 @@ public class BeerDto {
     @Positive
     private Integer quantityOnHand;
 
-//    @JsonSerialize(using = LocalDateSerializer.class)
-//    private LocalDate myLocalDate;
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate myLocalDate;
 }

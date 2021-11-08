@@ -22,7 +22,6 @@ public class BaseTest {
                 .lastModifiedDate(OffsetDateTime.now())
                 .price(new BigDecimal("8.99"))
                 .upc(293857390L)
-                .myLocalDate(LocalDate.now())
                 .build();
     }
 }

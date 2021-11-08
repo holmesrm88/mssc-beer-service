@@ -1,7 +1,7 @@
 package com.example.msscbeerservice.web.controller;
 
-import com.example.msscbeerservice.domain.Beer;
-import com.example.msscbeerservice.repositories.BeerRepository;
+import com.example.msscbeerservice.bootstrap.BeerLoader;
+import com.example.msscbeerservice.service.BeerService;
 import com.example.msscbeerservice.web.model.BeerDto;
 import com.example.msscbeerservice.web.model.BeerStyleEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -20,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -45,11 +44,11 @@ class BeerControllerTest {
     ObjectMapper objectMapper;
 
     @MockBean
-    BeerRepository beerRepository;
+    BeerService beerService;
 
     @Test
     void getBeerById() throws Exception {
-        given(beerRepository.findById(any())).willReturn(Optional.of(Beer.builder().build()));
+        given(beerService.getById(any())).willReturn(getValidBeerDto());
 
         mockMvc.perform(get("/api/v1/beer/{beerId}", UUID.randomUUID().toString())
                 .param("iscold", "yes")
@@ -81,6 +80,8 @@ class BeerControllerTest {
         BeerDto beerDto = getValidBeerDto();
         String beerDtoToJson = objectMapper.writeValueAsString(beerDto);
 
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
+
         ConstrainedFields fields = new ConstrainedFields(BeerDto.class);
 
         mockMvc.perform(post("/api/v1/beer/")
@@ -104,6 +105,7 @@ class BeerControllerTest {
 
     @Test
     void updateBeerById() throws Exception{
+        given(beerService.saveNewBeer(any())).willReturn(getValidBeerDto());
 
         BeerDto beerDto = getValidBeerDto();
         String beerDtoToJson = objectMapper.writeValueAsString(beerDto);
@@ -119,7 +121,7 @@ class BeerControllerTest {
                 .beerName("My Beer")
                 .beerStyle(BeerStyleEnum.ALE)
                 .price(new BigDecimal("2.99"))
-                .upc(2345435667L)
+                .upc(BeerLoader.BEER_1_UPC)
                 .build();
     }
 

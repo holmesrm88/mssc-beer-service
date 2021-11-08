@@ -1,6 +1,7 @@
 package com.example.msscbeerservice.web.model;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.validation.constraints.*;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @Builder
 public class BeerDto {
 
+    @JsonProperty("beerId")
     @Null
     private UUID id;
 

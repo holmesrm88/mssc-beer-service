@@ -34,7 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(RestDocumentationExtension.class)
 @AutoConfigureRestDocs
 @WebMvcTest(BeerController.class)
-@ComponentScan(basePackages = "com.example.msscbeerservice.web.mappers")
+//@ComponentScan(basePackages = "com.example.msscbeerservice.web.mappers")
 class BeerControllerTest {
 
     @Autowired

@@ -2,13 +2,15 @@ package com.example.msscbeerservice.bootstrap;
 
 import com.example.msscbeerservice.domain.Beer;
 import com.example.msscbeerservice.repositories.BeerRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-//@Component
+@Component
+@RequiredArgsConstructor
 public class BeerLoader implements CommandLineRunner {
     public static final UUID BEER_1_UUID = UUID.fromString("0a818933-087d-47f2-ad83-2f986ed087eb");
     public static final UUID BEER_2_UUID = UUID.fromString("a712d914-61ea-4623-8bd0-32c0f6545bfd");
@@ -19,13 +21,9 @@ public class BeerLoader implements CommandLineRunner {
 
     private final BeerRepository beerRepository;
 
-    public BeerLoader(BeerRepository beerRepository) {
-        this.beerRepository = beerRepository;
-    }
-
     @Override
     public void run(String... args) throws Exception {
-        //loadBeerObjects();
+        loadBeerObjects();
     }
 
     private void loadBeerObjects() {

@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2021-11-29T07:20:44-0500",
-    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 11.0.12 (Oracle Corporation)"
+    date = "2021-12-22T13:46:00-0500",
+    comments = "version: 1.4.2.Final, compiler: javac, environment: Java 17 (Homebrew)"
 )
 @Component
 @Qualifier("delegate")
@@ -68,5 +68,29 @@ public class BeerMapperImpl_ implements BeerMapper {
         beer.price( dto.getPrice() );
 
         return beer.build();
+    }
+
+    @Override
+    public BeerDto beerToBeerDtoWithInventory(Beer beer) {
+        if ( beer == null ) {
+            return null;
+        }
+
+        BeerDtoBuilder beerDto = BeerDto.builder();
+
+        beerDto.id( beer.getId() );
+        if ( beer.getVersion() != null ) {
+            beerDto.version( beer.getVersion().intValue() );
+        }
+        beerDto.createdDate( dateMapper.asOffsetDateTime( beer.getCreatedDate() ) );
+        beerDto.lastModifiedDate( dateMapper.asOffsetDateTime( beer.getLastModifiedDate() ) );
+        beerDto.beerName( beer.getBeerName() );
+        if ( beer.getBeerStyle() != null ) {
+            beerDto.beerStyle( Enum.valueOf( BeerStyleEnum.class, beer.getBeerStyle() ) );
+        }
+        beerDto.upc( beer.getUpc() );
+        beerDto.price( beer.getPrice() );
+
+        return beerDto.build();
     }
 }
